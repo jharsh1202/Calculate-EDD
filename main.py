@@ -1,14 +1,12 @@
-import ShipmentsUtility
-from ShipmentsUtility import get_shipment_with_awb
-
-ODPair_shipments = ShipmentsUtility.create_od_pairs()
+from Utilities.ShipmentsUtility import get_shipment_with_awb
 
 curr_awb = int(input("Your Shipment/AWB Number is?? \n -->> "))
 
-curr_shipment = get_shipment_with_awb(curr_awb, ODPair_shipments)
+curr_shipment = get_shipment_with_awb(curr_awb)
 
-print("(Origin)", curr_shipment.origin, "-> (Destination)", curr_shipment.destination)
-
-curr_shipment.get_estimated_delivery_time()
-
-
+if curr_shipment is not None:
+    print("(Origin)", curr_shipment.origin, "-> (Destination)", curr_shipment.destination)
+    path, edd = curr_shipment.get_estimated_delivery_time()
+    print(path + "\n" + edd)
+else:
+    print("Please check your AWB Number")
